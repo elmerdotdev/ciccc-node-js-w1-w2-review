@@ -1,0 +1,30 @@
+---
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>My Profile</h1>
+		</div>
+
+    <script>
+      const loadProfile = async (): Promise<void> => {
+        const res = await fetch(`http://localhost:3000/users/profile`, {
+          credentials: 'include'
+        })
+        const data = await res.json()
+        console.log(data)
+      }
+
+      loadProfile()
+    </script>
+	</body>
+</html>

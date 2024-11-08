@@ -1,0 +1,49 @@
+---
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Login</h1>
+			<form class="login">
+				<input type="text" name="username" placeholder="Enter username" required autocomplete="off">
+				<input type="password" name="password" required placeholder="Enter password">
+				<button type="submit">Log in</button>
+			</form>
+		</div>
+
+		<script>
+			const form = document.querySelector('.login') as HTMLFormElement
+
+			form?.addEventListener('submit', async (e): Promise<void> => {
+				e.preventDefault()
+				const formData = new FormData(form)
+				const res = await fetch(`http://localhost:3000/users/login`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					credentials: 'include',
+					body: JSON.stringify({
+						username: formData.get('username'),
+						password: formData.get('password')
+					})
+				})
+				const data = await res.json()
+				if (!res.ok) {
+					console.error(data.message)
+				} else {
+					console.log(data)
+				}
+			})
+		</script>
+	</body>
+</html>
